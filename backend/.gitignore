@@ -1,0 +1,38 @@
+# Virtual Environment
+venv/
+env/
+
+# Environment variables (NEVER upload to GitHub)
+.env
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Database
+*.db
+*.sqlite3
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Testing
+.pytest_cache/
+htmlcov/
+.coverage
+
+# Alembic auto-generated versions (we'll manage these manually)
+# alembic/versions/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
