@@ -1,10 +1,10 @@
+# main.py
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import settings
-from app.api.v1.auth import router as auth_router  # ⭐ CAMBIO AQUÍ
+from app.api.v1 import api_router  # importamos el router principal
 
 
-# Create FastAPI instance
 app = FastAPI(
     title=settings.APP_NAME,
     version=settings.APP_VERSION,
@@ -22,11 +22,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Registrar routers
-app.include_router(auth_router, prefix="/api/v1/auth", tags=["Authentication"])  # ⭐ CAMBIO AQUÍ
+# Registrar todos los routers de v1
+app.include_router(api_router, prefix="/api/v1")
 
 
-# Root endpoint - health check
 @app.get("/")
 def root():
     return {
@@ -37,7 +36,6 @@ def root():
     }
 
 
-# Health check endpoint
 @app.get("/health")
 def health_check():
     return {"status": "healthy"}

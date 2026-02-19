@@ -18,9 +18,9 @@ def create_initial_users():
                 is_active=True
             )
             db.add(admin)
-            print("✅ Usuario admin creado")
+            print(" Usuario admin creado")
         else:
-            print("⚠️ Admin ya existe")
+            print(" Admin ya existe")
         
         # Usuario 2: Operario
         operator = db.query(User).filter(User.email == "operario@marmogest.com").first()
@@ -33,15 +33,15 @@ def create_initial_users():
                 is_active=True
             )
             db.add(operator)
-            print("✅ Usuario operario creado")
+            print(" Usuario operario creado")
         else:
-            print("⚠️ Operario ya existe")
+            print(" Operario ya existe")
         
         db.commit()
-        print("\n🎉 Usuarios iniciales listos")
+        print("\n Usuarios iniciales listos")
         
     except Exception as e:
-        print(f"❌ Error: {e}")
+        print(f" Error: {e}")
         db.rollback()
     finally:
         db.close()
