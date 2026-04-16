@@ -1,0 +1,6 @@
+@use "app/assets/styles/variables" as *;
+@use "app/assets/styles/main";
+
+* {
+  font-family: $font-family;
+}

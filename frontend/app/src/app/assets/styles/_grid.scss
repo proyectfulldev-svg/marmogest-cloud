@@ -1,0 +1,16 @@
+@use 'variables' as *;
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+@for $i from 1 through 12 {
+  .col-#{$i} {
+    width: calc(100% / 12 * #{$i});
+    padding: 0 $spacing;
+  }
+}
+
+
