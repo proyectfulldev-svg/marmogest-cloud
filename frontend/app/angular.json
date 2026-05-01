@@ -25,12 +25,11 @@
               }
             ],
             "styles": [
-              "src/material-theme.scss",
-              "src/styles.scss"
+              "src/app/assets/styles/main.scss"
             ],
             "stylePreprocessorOptions": {
               "includePaths": [
-                "src/app/shared/styles"
+                "src/app/assets/styles"
               ]
             }
           },

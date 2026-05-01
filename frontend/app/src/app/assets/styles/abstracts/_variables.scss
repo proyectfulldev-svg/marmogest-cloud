@@ -1,0 +1,49 @@
+// ── Paleta de colores ──────────────────────────────────────
+$color-primary:     #1bc6dd;   // Color principal de la marca (tu cian)
+$color-primary-dark:#15a8bc;   // Hover de botones primarios
+$color-secondary:   #6c757d;   // Textos secundarios, bordes suaves
+$color-success:     #28a745;   // Confirmaciones, badges activo
+$color-danger:      #dc3545;   // Errores, badges inactivo
+$color-warning:     #ffc107;   // Advertencias
+
+// ── Neutros ────────────────────────────────────────────────
+$color-dark:        #1a1a2e;   // Texto principal
+$color-text-muted:  #888888;   // Texto secundario, placeholders
+$color-border:      #e4e4e4;   // Bordes de cards e inputs
+$color-bg:          #f5f6fa;   // Fondo general de la app
+$color-white:       #ffffff;
+
+// ── Tipografía ─────────────────────────────────────────────
+// Cambia "Inter" por la fuente que quieras usar
+$font-family:       'Inter', sans-serif;
+$font-size-xs:      11px;
+$font-size-sm:      12px;
+$font-size-base:    14px;
+$font-size-md:      16px;
+$font-size-lg:      18px;
+$font-size-xl:      24px;
+
+// ── Espaciado ──────────────────────────────────────────────
+// Siempre múltiplos de 4px — consistencia visual
+$spacing-xs:   4px;
+$spacing-sm:   8px;
+$spacing-md:   16px;
+$spacing-lg:   24px;
+$spacing-xl:   32px;
+$spacing-xxl:  48px;
+
+// ── Bordes ─────────────────────────────────────────────────
+$radius-sm:    4px;
+$radius-md:    8px;
+$radius-lg:    12px;
+$radius-xl:    16px;
+$radius-full:  50%;
+
+// ── Sombras ────────────────────────────────────────────────
+$shadow-sm:   0 1px 3px rgba(0,0,0,0.08);
+$shadow-md:   0 4px 12px rgba(0,0,0,0.10);
+$shadow-lg:   0 8px 24px rgba(0,0,0,0.12);
+
+// ── Transiciones ───────────────────────────────────────────
+$transition-fast:   all 0.15s ease;
+$transition-base:   all 0.25s ease;

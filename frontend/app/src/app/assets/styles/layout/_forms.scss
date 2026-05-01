@@ -1,0 +1,58 @@
+@use '../abstracts/variables' as v;
+@use '../abstracts/mixins' as m;
+
+// Contenedor de un campo: label + input + error
+.input-group {
+  @include m.flex-column;
+  gap: v.$spacing-xs;
+  position: relative;      // necesario para posicionar el error abajo
+  margin-bottom: v.$spacing-md;
+
+  label {
+    font-size: v.$font-size-sm;
+    font-weight: 500;
+    color: v.$color-dark;
+  }
+
+  input, select, textarea {
+    width: 100%;
+    padding: 10px v.$spacing-md;
+    border: 1.5px solid v.$color-border;
+    border-radius: v.$radius-md;
+    font-size: v.$font-size-base;
+    color: v.$color-dark;
+    background: v.$color-white;
+    transition: v.$transition-fast;
+
+    &::placeholder {
+      color: v.$color-text-muted;
+    }
+
+    // Estado focus: el borde se vuelve del color primario
+    &:focus {
+      border-color: v.$color-primary;
+      box-shadow: 0 0 0 3px rgba(27, 198, 221, 0.12);
+    }
+
+    // Estado inválido: borde rojo (Angular agrega .ng-invalid .ng-touched)
+    &.ng-invalid.ng-touched {
+      border-color: v.$color-danger;
+      box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.10);
+    }
+  }
+
+  // Mensaje de error debajo del input
+  // La directiva ValidationErrors que ya tienes lo genera
+  .form-error {
+    font-size: v.$font-size-sm;
+    color: v.$color-danger;
+    margin-top: 2px;
+  }
+}
+
+// Fila con dos campos lado a lado (nombre + apellido, etc.)
+.input-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: v.$spacing-md;
+}

@@ -1,0 +1,52 @@
+@use 'sass:color';
+@use '../abstracts/variables' as v;
+
+// Base — propiedades comunes a TODOS los botones
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px v.$spacing-lg;
+  border-radius: v.$radius-md;
+  font-size: v.$font-size-base;
+  font-weight: 500;
+  transition: v.$transition-fast;
+  white-space: nowrap;
+
+  &:disabled {
+    opacity: 0.55;
+    pointer-events: none;
+  }
+}
+
+// Primario — acción principal (Guardar, Ingresar)
+.btn-primary {
+  background: v.$color-primary;
+  color: v.$color-white;
+
+  &:hover { background: v.$color-primary-dark; }
+}
+
+// Secundario — acción secundaria (Cancelar, Volver)
+.btn-secondary {
+  background: transparent;
+  color: v.$color-secondary;
+  border: 1.5px solid v.$color-border;
+
+  &:hover { background: v.$color-bg; }
+}
+
+// Danger — acciones destructivas (Eliminar)
+.btn-danger {
+  background: v.$color-danger;
+  color: v.$color-white;
+
+  // color.adjust reemplaza el darken() que está deprecado en SCSS moderno
+  &:hover { background: color.adjust(v.$color-danger, $lightness: -8%); }
+}
+
+// Ancho completo — para botones en formularios
+.btn-block {
+  width: 100%;
+}

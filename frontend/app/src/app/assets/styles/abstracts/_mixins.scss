@@ -1,0 +1,37 @@
+@use 'variables' as v;
+
+// Centra con flexbox — el más usado
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Flex en columna centrado — para formularios, modals
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+// Trunca texto largo con "..."
+// Uso: @include text-truncate(200px)
+@mixin text-truncate($max-width: 100%) {
+  max-width: $max-width;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+// Responsive — oculta en pantallas pequeñas
+// Uso: @include mobile { display: none; }
+@mixin mobile {
+  @media (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (max-width: 1024px) {
+    @content;
+  }
+}

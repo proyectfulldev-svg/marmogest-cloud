@@ -1,0 +1,78 @@
+// pages/_auth.scss
+//
+// Layout de la página de login.
+// Divide la pantalla en dos mitades: imagen a la izquierda, formulario a la derecha.
+// Igual al patrón que ya tenías, pero usando tus variables.
+
+@use '../abstracts/variables' as v;
+@use '../abstracts/mixins' as m;
+
+.wrapper-login {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+
+  // ── Mitad izquierda: imagen decorativa ──────────────────
+  .img-login {
+    width: 55%;
+    background-image: url('/gato.jpg');
+    background-size: cover;
+    background-position: center;
+
+    // En móvil desaparece, todo el espacio es para el formulario
+    @include m.mobile { display: none; }
+  }
+
+  // ── Mitad derecha: formulario ───────────────────────────
+  .form-login {
+    @include m.flex-center;
+    flex: 1;
+    background: v.$color-white;
+    padding: v.$spacing-lg;
+
+    // La card del formulario
+    .forms {
+      @include m.flex-column;
+      width: 380px;
+      padding: v.$spacing-xl v.$spacing-lg;
+      border-radius: v.$radius-xl;
+      border: 1px solid v.$color-border;
+      border-top: 6px solid v.$color-primary;
+      gap: 0;
+
+      // Ícono de marca arriba del título
+      .brand-icon {
+        width: 36px;
+        height: 36px;
+        background: v.$color-primary;
+        border-radius: v.$radius-md;
+        margin-bottom: v.$spacing-md;
+      }
+
+      // Bloque de título y subtítulo
+      .title {
+        @include m.flex-column;
+        gap: v.$spacing-xs;
+        margin-bottom: v.$spacing-lg;
+
+        .title-main {
+          font-size: v.$font-size-xl;
+          font-weight: 600;
+          color: v.$color-dark;
+        }
+
+        .title-sub {
+          font-size: v.$font-size-base;
+          color: v.$color-text-muted;
+        }
+      }
+
+      // Botón de submit ocupa todo el ancho
+      .btn-container {
+        margin-top: v.$spacing-sm;
+
+        .btn { width: 100%; }
+      }
+    }
+  }
+}
