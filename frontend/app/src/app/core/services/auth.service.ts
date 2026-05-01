@@ -1,78 +1,85 @@
 // src/app/core/services/auth.service.ts
-
-/**
- * AuthService — Maneja todo lo relacionado con autenticación
- *
- * Sigue el principio de responsabilidad única (SRP):
- * este servicio SOLO sabe de login, logout y estado de sesión.
- * No sabe nada de productos, facturas, etc. — eso va en otros servicios.
- */
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Observable, of, throwError } from 'rxjs';
+import { delay } from 'rxjs/operators';
 
-import { HttpService } from './http.service';
 import { StorageService } from './storage.service';
-import { EndPoints } from '../utils/end-points';
 import {AuthLogin, AuthResponse, AuthUser} from '../interfaces/http-options.interface';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
+  // Credenciales de prueba — cuando tengas backend las eliminas
+  private readonly MOCK_EMAIL    = 'admin@marmogest.com';
+  private readonly MOCK_PASSWORD = '123456';
+
   constructor(
-    private _http: HttpService,
     private _storage: StorageService,
     private router: Router
   ) {}
 
   /**
-   * login() — Envía credenciales al backend
+   * login() simulado — imita lo que haría una llamada real al backend.
    *
-   * Devuelve un Observable — el componente hace .subscribe() para
-   * reaccionar cuando llega la respuesta.
+   * of() crea un Observable con un valor fijo — como si el backend respondiera.
+   * delay(800) simula el tiempo de respuesta de red (800ms).
+   * throwError() simula un error del backend cuando las credenciales son incorrectas.
    *
-   * El operador tap() ejecuta código "de lado" sin modificar la respuesta:
-   * úsalo para guardar el token cuando el login es exitoso.
+   * Cuando tengas backend: reemplaza todo esto por:
+   * return this._http.post<AuthLogin, AuthResponse>(EndPoints.LOGIN, credentials).pipe(
+   *   tap(response => this.saveSession(response))
+   * );
    */
   login(credentials: AuthLogin): Observable<AuthResponse> {
-    return this._http.post<AuthLogin, AuthResponse>(EndPoints.LOGIN, credentials).pipe(
-      tap((response: AuthResponse) => {
-        // tap se ejecuta cuando el backend responde con éxito.
-        // Guardamos el token y el usuario en localStorage.
-        this._storage.setItem('access_token', response.access_token);
-        this._storage.setItem('user', response.user);
-      })
-    );
+    const { email, password } = credentials;
+
+    if (email === this.MOCK_EMAIL && password === this.MOCK_PASSWORD) {
+      const mockResponse: AuthResponse = {
+        access_token: 'mock-token-xyz-123',
+        user: {
+          id: '1',
+          name: 'Administrador',
+          email: email,
+          role: 'admin'
+        }
+      };
+
+      // Guardamos la sesión y devolvemos el observable con delay
+      this.saveSession(mockResponse);
+      return of(mockResponse).pipe(delay(800));
+    }
+
+    // Credenciales incorrectas — devuelve un error como haría el backend
+    return throwError(() => ({
+      status: 401,
+      message: 'Correo o contraseña incorrectos'
+    }));
   }
 
   /**
-   * isLoggedIn() — Verifica si hay una sesión activa
-   *
-   * Los Guards usan este método para decidir si dejar pasar o redirigir.
-   * Por ahora verifica solo que el token exista — más adelante
-   * podrías verificar también que no esté vencido.
+   * saveSession() — guarda token y usuario en localStorage.
+   * Método privado porque solo lo usa este servicio.
+   * Separado para que cuando conectes el backend real
+   * solo llames this.saveSession(response) desde el tap().
    */
+  private saveSession(response: AuthResponse): void {
+    this._storage.setItem('access_token', response.access_token);
+    this._storage.setItem('user', response.user);
+  }
+
+  /** Devuelve true si hay token guardado — lo usan los Guards */
   isLoggedIn(): boolean {
     const token = this._storage.getItem<string>('access_token');
     return token !== null && token !== '';
   }
 
-  /**
-   * getUser() — Devuelve el usuario guardado en sesión
-   *
-   * Útil para mostrar el nombre en el header, verificar el rol, etc.
-   */
+  /** Devuelve el usuario guardado — útil para el header */
   getUser(): AuthUser | null {
     return this._storage.getItem<AuthUser>('user');
   }
 
-  /**
-   * logout() — Limpia la sesión y redirige al login
-   *
-   * removeAll() borra TODO el localStorage.
-   * Luego redirige a '/' que está configurado para ir al login.
-   */
+  /** Borra la sesión y redirige al login */
   logout(): void {
     this._storage.removeAll();
     this.router.navigateByUrl('/');
