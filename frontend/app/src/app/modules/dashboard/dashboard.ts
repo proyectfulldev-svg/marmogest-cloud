@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialog } from '@angular/material/dialog';
+
+import { CreateInvoice } from '../invoices/create-invoice/create-invoice';
 
 // ── Interfaces ────────────────────────────────────────────────
 
@@ -52,6 +55,12 @@ interface ActivityItem {
   styleUrl: './dashboard.css',
 })
 export class Dashboard {
+  private readonly _dialog = inject(MatDialog);
+
+  openCreateInvoice(): void {
+    this._dialog.open(CreateInvoice, { panelClass: 'modal-lg', width: '860px' });
+  }
+
 
   readonly today = new Date().toLocaleDateString('es-PE', {
     weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'

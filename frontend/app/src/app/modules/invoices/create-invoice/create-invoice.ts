@@ -1,11 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-create-invoice',
-  imports: [],
+  standalone: true,
+  imports: [MatIconModule],
   templateUrl: './create-invoice.html',
-  styleUrl: './create-invoice.css',
 })
 export class CreateInvoice {
+  private readonly _ref = inject(MatDialogRef<CreateInvoice>);
 
+  close(): void { this._ref.close(); }
+  save(): void  { this._ref.close(true); }
 }

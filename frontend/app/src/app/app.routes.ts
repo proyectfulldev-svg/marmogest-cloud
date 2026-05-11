@@ -32,20 +32,8 @@ export const routes: Routes = [
         loadComponent: () => import('./modules/invoices/invoice-list/invoice-list').then(m => m.InvoiceList),
       },
       {
-        path: 'invoices/create',
-        loadComponent: () => import('./modules/invoices/create-invoice/create-invoice').then(m => m.CreateInvoice),
-      },
-      {
-        path: 'invoices/:id',
-        loadComponent: () => import('./modules/invoices/invoice-details/invoice-details').then(m => m.InvoiceDetails),
-      },
-      {
         path: 'suppliers',
         loadComponent: () => import('./modules/suppliers/list-of-suppliers/list-of-suppliers').then(m => m.ListOfSuppliers),
-      },
-      {
-        path: 'suppliers/purchase-orders',
-        loadComponent: () => import('./modules/suppliers/purchase-orders/purchase-orders').then(m => m.PurchaseOrders),
       },
       {
         path: 'statistics',

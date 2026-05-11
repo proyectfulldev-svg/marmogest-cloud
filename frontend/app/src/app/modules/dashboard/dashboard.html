@@ -6,10 +6,10 @@
       <h1>Dashboard</h1>
       <p class="text-muted">{{ today }}</p>
     </div>
-    <a routerLink="/invoices/create" class="btn btn-primary">
+    <button class="btn btn-primary" (click)="openCreateInvoice()">
       <mat-icon>add</mat-icon>
       Nueva factura
-    </a>
+    </button>
   </div>
 
   <!-- ── Stat cards ────────────────────────────────────────── -->
