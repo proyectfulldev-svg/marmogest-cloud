@@ -1,0 +1,177 @@
+@use '../abstracts/variables' as v;
+@use '../abstracts/mixins' as m;
+
+// ── Cabecera de card reutilizable ─────────────────────────────
+.info-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 600;
+  font-size: v.$font-size-md;
+  color: v.$color-dark;
+  margin-bottom: v.$spacing-md;
+  padding-bottom: v.$spacing-sm;
+  border-bottom: 1px solid v.$color-border;
+}
+
+// ── Dashboard ─────────────────────────────────────────────────
+.dashboard {
+  @include m.flex-column;
+  gap: v.$spacing-lg;
+
+  // ── Fila de stats ─────────────────────────────────────────
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: v.$spacing-md;
+
+    @include m.tablet { grid-template-columns: 1fr 1fr; }
+    @include m.mobile { grid-template-columns: 1fr; }
+  }
+
+  // ── Fila principal: columna izquierda + aside ─────────────
+  .dashboard-main {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: v.$spacing-lg;
+
+    @include m.tablet { grid-template-columns: 1fr; }
+  }
+
+  .dashboard-left,
+  .dashboard-aside {
+    @include m.flex-column;
+    gap: v.$spacing-lg;
+  }
+
+  // ── Mini tabla de facturas ─────────────────────────────────
+  .invoice-mini-wrap {
+    overflow-x: auto;
+    margin: 0 calc(-1 * v.$spacing-lg);
+    padding: 0 v.$spacing-lg;
+  }
+
+  .invoice-mini-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: v.$font-size-sm;
+
+    thead th {
+      text-align: left;
+      padding: v.$spacing-xs v.$spacing-sm;
+      color: v.$color-text-muted;
+      font-weight: 600;
+      font-size: v.$font-size-xs;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      border-bottom: 1px solid v.$color-border;
+      white-space: nowrap;
+    }
+
+    tbody tr {
+      border-bottom: 1px solid v.$color-border;
+      transition: v.$transition-fast;
+
+      &:last-child { border-bottom: none; }
+      &:hover { background: v.$color-bg; }
+    }
+
+    tbody td {
+      padding: v.$spacing-sm;
+      color: v.$color-dark;
+      vertical-align: middle;
+    }
+
+    .inv-number { font-weight: 600; color: v.$color-primary; white-space: nowrap; }
+    .inv-amount { font-weight: 600; white-space: nowrap; }
+    .inv-date   { color: v.$color-text-muted; white-space: nowrap; }
+  }
+
+  // ── Stock bajo ────────────────────────────────────────────
+  .low-stock-list {
+    @include m.flex-column;
+    gap: v.$spacing-md;
+  }
+
+  .low-stock-item {
+    @include m.flex-column;
+    gap: v.$spacing-xs;
+  }
+
+  .low-stock-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .low-stock-name { font-size: v.$font-size-sm; font-weight: 500; color: v.$color-dark; }
+  .low-stock-qty  { font-size: v.$font-size-sm; font-weight: 700; color: v.$color-dark; }
+  .low-stock-min  { font-size: v.$font-size-xs; color: v.$color-text-muted; }
+
+  .stock-bar {
+    height: 6px;
+    background: v.$color-bg;
+    border-radius: 99px;
+    overflow: hidden;
+
+    .stock-fill {
+      height: 100%;
+      border-radius: 99px;
+      transition: width 0.4s ease;
+
+      &.low    { background: v.$color-danger; }
+      &.medium { background: v.$color-warning; }
+      &.high   { background: v.$color-success; }
+    }
+  }
+
+  // ── Panel: materiales más vendidos ────────────────────────
+  .top-materials {
+    .material-row {
+      display: flex;
+      align-items: center;
+      gap: v.$spacing-sm;
+      padding: v.$spacing-sm 0;
+      border-bottom: 1px solid v.$color-border;
+
+      &:last-child { border-bottom: none; }
+
+      .material-rank {
+        width: 24px; height: 24px;
+        border-radius: 50%;
+        background: v.$color-bg;
+        @include m.flex-center;
+        font-size: v.$font-size-xs;
+        font-weight: 700;
+        color: v.$color-text-muted;
+        flex-shrink: 0;
+      }
+
+      .material-name  { flex: 1; font-size: v.$font-size-sm; font-weight: 500; color: v.$color-dark; }
+      .material-units { font-size: v.$font-size-xs; color: v.$color-text-muted; }
+      .material-amount{ font-size: v.$font-size-sm; font-weight: 600; color: v.$color-dark; }
+    }
+  }
+
+  // ── Actividad reciente ────────────────────────────────────
+  .activity-feed {
+    .activity-item {
+      display: flex;
+      gap: v.$spacing-sm;
+      padding: v.$spacing-sm 0;
+      border-bottom: 1px solid v.$color-border;
+      &:last-child { border-bottom: none; }
+
+      .activity-dot {
+        width: 8px; height: 8px;
+        border-radius: 50%;
+        background: v.$color-primary;
+        margin-top: 6px;
+        flex-shrink: 0;
+      }
+
+      .activity-text { font-size: v.$font-size-sm; color: v.$color-dark; flex: 1; line-height: 1.4; }
+      .activity-time { font-size: v.$font-size-xs; color: v.$color-text-muted; margin-top: 2px; display: block; }
+    }
+  }
+}

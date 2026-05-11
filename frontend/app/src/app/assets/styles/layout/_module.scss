@@ -1,0 +1,107 @@
+@use '../abstracts/variables' as v;
+@use '../abstracts/mixins' as m;
+
+$sidebar-width: 240px;
+$sidebar-collapsed: 68px;
+$topbar-height: 60px;
+
+// ── Layout principal app ─────────────────────────────────────
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+  background: v.$color-bg;
+}
+
+// ── Área de contenido (derecha del sidebar) ──────────────────
+.main-content {
+  flex: 1;
+  margin-left: $sidebar-width;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: margin-left 0.25s ease;
+
+  &.sidebar-collapsed { margin-left: $sidebar-collapsed; }
+
+  @include m.mobile { margin-left: 0; }
+}
+
+// ── Topbar ───────────────────────────────────────────────────
+.topbar {
+  height: $topbar-height;
+  background: v.$color-white;
+  border-bottom: 1px solid v.$color-border;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 v.$spacing-lg;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: v.$shadow-sm;
+
+  .topbar-left {
+    display: flex;
+    align-items: center;
+    gap: v.$spacing-md;
+
+    .page-title {
+      font-size: v.$font-size-md;
+      font-weight: 600;
+      color: v.$color-dark;
+    }
+
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: v.$spacing-xs;
+      font-size: v.$font-size-sm;
+      color: v.$color-text-muted;
+
+      .breadcrumb-sep { color: v.$color-border; }
+      .breadcrumb-current { color: v.$color-dark; font-weight: 500; }
+    }
+  }
+
+  .topbar-right {
+    display: flex;
+    align-items: center;
+    gap: v.$spacing-sm;
+  }
+}
+
+// ── Router outlet wrapper ────────────────────────────────────
+.content-area {
+  flex: 1;
+  padding: v.$spacing-lg;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+// ── Módulo section (sección dentro de una página) ────────────
+.module-section {
+  background: v.$color-white;
+  border: 1px solid v.$color-border;
+  border-radius: v.$radius-lg;
+  overflow: hidden;
+
+  .module-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: v.$spacing-md v.$spacing-lg;
+    border-bottom: 1px solid v.$color-border;
+    background: v.$color-white;
+
+    h2 {
+      font-size: v.$font-size-md;
+      font-weight: 600;
+      color: v.$color-dark;
+      margin: 0;
+    }
+  }
+
+  .module-section-body {
+    padding: v.$spacing-lg;
+  }
+}

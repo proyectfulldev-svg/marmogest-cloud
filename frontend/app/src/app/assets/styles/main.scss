@@ -1,0 +1,42 @@
+// main.scss — Orquestador central de estilos
+//
+// Orden SMACSS: Abstracts → Vendors → Base → Themes → Layout → Components → Pages
+// Cada capa depende de la anterior, nunca al revés.
+
+// 1. Abstracts (variables y mixins — no generan CSS por sí solos)
+@use './abstracts/variables';
+@use './abstracts/mixins';
+
+// 2. Vendors (normalize — base cross-browser)
+@use './vendors/normalize';
+
+// 3. Base (reset, tipografía, utilidades, hacks)
+@use './base/reset';
+@use './base/typography';
+@use './base/base';
+@use './base/shame';
+
+// 4. Themes (Material 3 personalizado)
+@use './themes/theme';
+
+// 5. Layout (contenedores estructurales)
+@use './layout/module';
+@use './layout/forms';
+@use './layout/tables';
+
+// 6. Components (UI reutilizable)
+@use './components/buttons';
+@use './components/alerts';
+@use './components/badges';
+@use './components/cards';
+@use './components/sidebar';
+
+// 7. Modals
+@use './modals/base-modal';
+
+// 8. Pages (estilos específicos por página)
+@use './pages/auth';
+@use './pages/dashboard';
+@use './pages/inventory';
+@use './pages/invoices';
+@use './pages/main';

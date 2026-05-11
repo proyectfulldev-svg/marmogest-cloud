@@ -1,0 +1,54 @@
+@use 'sass:color';
+@use '../abstracts/variables' as v;
+
+// ── Badge base ───────────────────────────────────────────────
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: v.$font-size-xs;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  white-space: nowrap;
+}
+
+// ── Estados de stock (inventario de mármol) ──────────────────
+.badge-in-stock {
+  background: color.adjust(#28a745, $lightness: 52%);
+  color: color.adjust(#28a745, $lightness: -8%);
+}
+.badge-low-stock {
+  background: color.adjust(#ffc107, $lightness: 38%);
+  color: color.adjust(#ffc107, $lightness: -30%);
+}
+.badge-out-of-stock {
+  background: color.adjust(#dc3545, $lightness: 44%);
+  color: color.adjust(#dc3545, $lightness: -10%);
+}
+.badge-in-transit {
+  background: color.adjust(#1bc6dd, $lightness: 42%);
+  color: color.adjust(#1bc6dd, $lightness: -15%);
+}
+
+// ── Estados de factura ───────────────────────────────────────
+.badge-paid     { @extend .badge-in-stock; }
+.badge-pending  { @extend .badge-low-stock; }
+.badge-overdue  { @extend .badge-out-of-stock; }
+.badge-draft    {
+  background: v.$color-bg;
+  color: v.$color-text-muted;
+  border: 1px solid v.$color-border;
+}
+
+// ── Estados generales ────────────────────────────────────────
+.badge-active   { @extend .badge-in-stock; }
+.badge-inactive { @extend .badge-draft; }
+
+// ── Tipos de material (decorativo) ──────────────────────────
+.badge-marble    { background: #f5f5f0; color: #555; border: 1px solid #ddd; }
+.badge-granite   { background: #ede8e3; color: #6b4e3d; border: 1px solid #d5c9c0; }
+.badge-travertine{ background: #faf6f0; color: #8b6914; border: 1px solid #e5d8be; }
+.badge-quartz    { background: #eef3fb; color: #2c5f9e; border: 1px solid #c5d8f0; }

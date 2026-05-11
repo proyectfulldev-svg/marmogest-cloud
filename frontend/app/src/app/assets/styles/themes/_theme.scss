@@ -1,0 +1,55 @@
+@use '@angular/material' as mat;
+@use '../abstracts/variables' as v;
+
+// ── Tema Angular Material 3 — Marmogest ──────────────────────
+//
+// Angular 21 usa Material 3 con CSS variables.
+// Sobreescribimos las variables de sistema para que los componentes
+// de Material (botones, inputs, etc.) usen nuestra paleta de marca.
+
+html {
+  @include mat.theme((
+    color: (
+      primary: mat.$cyan-palette,
+      tertiary: mat.$blue-palette,
+    ),
+    typography: 'Inter',
+    density: 0,
+  ));
+
+  // Mapear nuestros tokens de marca a variables de Material
+  --mat-sys-primary:            #{v.$color-primary};
+  --mat-sys-on-primary:         #ffffff;
+  --mat-sys-primary-container:  rgba(27, 198, 221, 0.12);
+  --mat-sys-surface:            #{v.$color-bg};
+  --mat-sys-on-surface:         #{v.$color-dark};
+  --mat-sys-outline:            #{v.$color-border};
+  --mat-sys-error:              #{v.$color-danger};
+}
+
+// ── Ajustes globales de Material ─────────────────────────────
+.mat-mdc-form-field {
+  width: 100%;
+}
+
+// Inputs: borde y color de acento primario
+.mat-mdc-outlined-text-field {
+  --mdc-outlined-text-field-focus-outline-color: #{v.$color-primary};
+  --mdc-outlined-text-field-label-text-color:    #{v.$color-text-muted};
+}
+
+// Botón primario Material alineado con nuestra marca
+.mat-mdc-raised-button.mat-primary {
+  --mdc-protected-button-container-color: #{v.$color-primary};
+}
+
+// Dialogs — border-radius consistente con el resto de la app
+.mat-mdc-dialog-container .mdc-dialog__surface {
+  border-radius: v.$radius-xl !important;
+}
+
+// Paginator — fuente consistente
+.mat-mdc-paginator {
+  font-size: v.$font-size-sm;
+  color: v.$color-text-muted;
+}

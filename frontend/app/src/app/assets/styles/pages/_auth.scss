@@ -4,6 +4,7 @@
 // Divide la pantalla en dos mitades: imagen a la izquierda, formulario a la derecha.
 // Igual al patrón que ya tenías, pero usando tus variables.
 
+@use 'sass:color';
 @use '../abstracts/variables' as v;
 @use '../abstracts/mixins' as m;
 
@@ -64,6 +65,25 @@
         .title-sub {
           font-size: v.$font-size-base;
           color: v.$color-text-muted;
+        }
+      }
+
+      // Error de credenciales del backend
+      .login-error {
+        display: flex;
+        align-items: center;
+        gap: v.$spacing-xs;
+        background: color.adjust(#dc3545, $lightness: 44%);
+        border: 1px solid color.adjust(#dc3545, $lightness: 30%);
+        color: color.adjust(#dc3545, $lightness: -10%);
+        border-radius: v.$radius-md;
+        padding: v.$spacing-sm v.$spacing-md;
+        font-size: v.$font-size-sm;
+        margin-bottom: v.$spacing-sm;
+
+        &::before {
+          content: '⚠';
+          flex-shrink: 0;
         }
       }
 

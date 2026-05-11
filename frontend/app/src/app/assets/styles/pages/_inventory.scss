@@ -1,0 +1,67 @@
+@use '../abstracts/variables' as v;
+@use '../abstracts/mixins' as m;
+
+// ── Inventario de materiales ──────────────────────────────────
+.inventory-page {
+  @include m.flex-column;
+  gap: v.$spacing-lg;
+
+  // ── Barra de filtros ──────────────────────────────────────
+  .inventory-filters {
+    display: flex;
+    align-items: flex-end;
+    gap: v.$spacing-sm;
+    flex-wrap: wrap;
+
+    .filter-search {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .filter-select { min-width: 160px; }
+
+    @include m.mobile {
+      .filter-search, .filter-select { width: 100%; }
+    }
+  }
+
+  // ── Vista grilla de productos ─────────────────────────────
+  .inventory-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: v.$spacing-md;
+  }
+
+  // ── Detalle rápido de material ────────────────────────────
+  .material-specs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: v.$spacing-sm;
+
+    .spec-item {
+      @include m.flex-column;
+      gap: 2px;
+
+      .spec-label { font-size: v.$font-size-xs; color: v.$color-text-muted; }
+      .spec-value { font-size: v.$font-size-sm; font-weight: 500; color: v.$color-dark; }
+    }
+  }
+
+  // ── Indicador de stock ────────────────────────────────────
+  .stock-bar {
+    height: 6px;
+    border-radius: 3px;
+    background: v.$color-border;
+    overflow: hidden;
+
+    .stock-fill {
+      height: 100%;
+      border-radius: 3px;
+      transition: width 0.4s ease;
+
+      &.high   { background: v.$color-success; }
+      &.medium { background: #ffc107; }
+      &.low    { background: v.$color-danger; }
+    }
+  }
+}

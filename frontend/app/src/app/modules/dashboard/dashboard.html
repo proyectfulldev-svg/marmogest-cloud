@@ -1,0 +1,137 @@
+<div class="dashboard">
+
+  <!-- ── Cabecera ──────────────────────────────────────────── -->
+  <div class="page-header">
+    <div>
+      <h1>Dashboard</h1>
+      <p class="text-muted">{{ today }}</p>
+    </div>
+    <a routerLink="/invoices/create" class="btn btn-primary">
+      <mat-icon>add</mat-icon>
+      Nueva factura
+    </a>
+  </div>
+
+  <!-- ── Stat cards ────────────────────────────────────────── -->
+  <div class="stats-row">
+    @for (stat of statCards; track stat.label) {
+      <div class="stat-card">
+        <div class="stat-icon {{ stat.iconClass }}">
+          <mat-icon>{{ stat.icon }}</mat-icon>
+        </div>
+        <div class="stat-info">
+          <span class="stat-value">{{ stat.value }}</span>
+          <span class="stat-label">{{ stat.label }}</span>
+          <span class="stat-trend {{ stat.trendUp ? 'up' : 'down' }}">
+            {{ stat.trendUp ? '↑' : '↓' }} {{ stat.trend }}
+          </span>
+        </div>
+      </div>
+    }
+  </div>
+
+  <!-- ── Cuerpo principal ───────────────────────────────────── -->
+  <div class="dashboard-main">
+
+    <!-- Columna izquierda: últimas facturas + actividad -->
+    <div class="dashboard-left">
+
+      <!-- Últimas facturas -->
+      <div class="card">
+        <div class="info-card-header">
+          <span>Últimas facturas</span>
+          <a routerLink="/invoices" class="btn btn-light btn-sm">Ver todas</a>
+        </div>
+
+        <div class="invoice-mini-wrap">
+          <table class="invoice-mini-table">
+            <thead>
+              <tr>
+                <th>N°</th>
+                <th>Cliente</th>
+                <th>Monto</th>
+                <th>Estado</th>
+                <th>Fecha</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (inv of recentInvoices; track inv.number) {
+                <tr>
+                  <td class="inv-number">{{ inv.number }}</td>
+                  <td>{{ inv.client }}</td>
+                  <td class="inv-amount">{{ inv.amount }}</td>
+                  <td><span [class]="badgeClass(inv.status)">{{ badgeLabel(inv.status) }}</span></td>
+                  <td class="inv-date">{{ inv.date }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Actividad reciente -->
+      <div class="card">
+        <div class="info-card-header">
+          <span>Actividad reciente</span>
+        </div>
+        <div class="activity-feed">
+          @for (item of activity; track item.text) {
+            <div class="activity-item">
+              <div class="activity-dot"></div>
+              <div>
+                <p class="activity-text">{{ item.text }}</p>
+                <span class="activity-time">{{ item.time }}</span>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Columna derecha: stock bajo + top materiales -->
+    <div class="dashboard-aside">
+
+      <!-- Stock bajo -->
+      <div class="card">
+        <div class="info-card-header">
+          <span>⚠ Stock bajo</span>
+          <a routerLink="/inventory" class="btn btn-light btn-sm">Ver todo</a>
+        </div>
+
+        <div class="low-stock-list">
+          @for (item of lowStock; track item.name) {
+            <div class="low-stock-item">
+              <div class="low-stock-header">
+                <span class="low-stock-name">{{ item.name }}</span>
+                <span class="low-stock-qty">{{ item.current }} {{ item.unit }}</span>
+              </div>
+              <div class="stock-bar">
+                <div class="stock-fill {{ item.level }}" [style.width.%]="item.percent"></div>
+              </div>
+              <span class="low-stock-min">Mínimo: {{ item.min }} {{ item.unit }}</span>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Top materiales -->
+      <div class="card top-materials">
+        <div class="info-card-header">
+          <span>🏆 Más vendidos</span>
+        </div>
+
+        @for (mat of topMaterials; track mat.rank) {
+          <div class="material-row">
+            <span class="material-rank">{{ mat.rank }}</span>
+            <span class="material-name">{{ mat.name }}</span>
+            <span class="material-units">{{ mat.sold }}</span>
+            <span class="material-amount">{{ mat.revenue }}</span>
+          </div>
+        }
+      </div>
+
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,18 @@
+// _shame.scss
+//
+// Archivo para fixes temporales, hacks o parches.
+// Todo lo que entre aquí debe tener un comentario explicando POR QUÉ existe
+// y un TODO con la solución definitiva.
+
+// ── Fix Angular Material: dialogs en Angular 21 ─────────────
+// TODO: eliminar cuando Material actualice su z-index por defecto
+.cdk-overlay-container { z-index: 1050; }
+
+// ── Fix: scrollbar en tablas de Angular Material ─────────────
+// Angular Material agrega un scroll horizontal no deseado en tablas responsivas
+// TODO: revisar cuando se actualice @angular/material > 21
+.mat-mdc-table-container { overflow-x: auto; }
+
+// ── Fix: botón submit sin estilos en algunos navegadores ─────
+// Safari en iOS no aplica cursor:pointer a botones por defecto
+button[type='submit'] { cursor: pointer; }

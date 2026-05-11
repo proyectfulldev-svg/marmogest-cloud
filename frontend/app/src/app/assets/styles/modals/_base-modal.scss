@@ -1,0 +1,90 @@
+@use '../abstracts/variables' as v;
+@use '../abstracts/mixins' as m;
+
+// ── Overlay del modal (fondo oscuro) ──────────────────────────
+// Angular Material CDK lo gestiona, solo ajustamos el color
+.cdk-overlay-dark-backdrop {
+  background: rgba(0, 0, 0, 0.45);
+}
+
+// ── Contenedor base del modal ─────────────────────────────────
+.modal-container {
+  background: v.$color-white;
+  border-radius: v.$radius-xl;
+  box-shadow: v.$shadow-lg;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+  width: 100%;
+}
+
+// ── Cabecera ──────────────────────────────────────────────────
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: v.$spacing-lg;
+  border-bottom: 1px solid v.$color-border;
+  flex-shrink: 0;
+
+  h2, .modal-title {
+    font-size: v.$font-size-lg;
+    font-weight: 600;
+    color: v.$color-dark;
+    margin: 0;
+  }
+
+  .modal-close {
+    width: 32px; height: 32px;
+    border-radius: v.$radius-md;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: v.$color-text-muted;
+    @include m.flex-center;
+    transition: v.$transition-fast;
+
+    &:hover {
+      background: v.$color-bg;
+      color: v.$color-dark;
+    }
+  }
+}
+
+// ── Cuerpo (scrollable) ───────────────────────────────────────
+.modal-body {
+  padding: v.$spacing-lg;
+  overflow-y: auto;
+  flex: 1;
+
+  &::-webkit-scrollbar { width: 4px; }
+  &::-webkit-scrollbar-thumb { background: v.$color-border; border-radius: 4px; }
+}
+
+// ── Pie de página: botones de acción ──────────────────────────
+.modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: v.$spacing-sm;
+  padding: v.$spacing-md v.$spacing-lg;
+  border-top: 1px solid v.$color-border;
+  flex-shrink: 0;
+
+  &.modal-footer-left { justify-content: flex-start; }
+  &.modal-footer-between { justify-content: space-between; }
+}
+
+// ── Tamaños predefinidos de modal ─────────────────────────────
+// Uso: this.dialog.open(MyComponent, { panelClass: 'modal-sm' })
+.modal-sm  .mat-mdc-dialog-container { max-width: 400px  !important; }
+.modal-md  .mat-mdc-dialog-container { max-width: 600px  !important; }
+.modal-lg  .mat-mdc-dialog-container { max-width: 860px  !important; }
+.modal-xl  .mat-mdc-dialog-container { max-width: 1100px !important; }
+
+// ── Sobreescribir border-radius de Material ───────────────────
+.mat-mdc-dialog-container .mdc-dialog__surface {
+  border-radius: v.$radius-xl !important;
+  padding: 0 !important;
+}

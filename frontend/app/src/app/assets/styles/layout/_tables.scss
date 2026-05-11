@@ -1,2 +1,103 @@
-// layout/_tables.scss
-// Pendiente — estilos de tablas
+@use '../abstracts/variables' as v;
+@use '../abstracts/mixins' as m;
+
+// ── Wrapper general de la tabla ───────────────────────────────
+.table-wrapper {
+  background: v.$color-white;
+  border: 1px solid v.$color-border;
+  border-radius: v.$radius-lg;
+  overflow: hidden;
+  box-shadow: v.$shadow-sm;
+}
+
+// ── Toolbar: búsqueda + acciones ─────────────────────────────
+.table-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: v.$spacing-sm;
+  padding: v.$spacing-md v.$spacing-lg;
+  border-bottom: 1px solid v.$color-border;
+  flex-wrap: wrap;
+
+  @include m.mobile { flex-direction: column; align-items: stretch; }
+}
+
+.table-search {
+  display: flex;
+  align-items: center;
+  gap: v.$spacing-xs;
+  flex: 1;
+  max-width: 360px;
+
+  @include m.mobile { max-width: 100%; }
+}
+
+.search-input {
+  flex: 1;
+  height: 38px;
+  padding: 0 v.$spacing-md;
+  border: 1.5px solid v.$color-border;
+  border-radius: v.$radius-md;
+  font-size: v.$font-size-base;
+  color: v.$color-dark;
+  background: v.$color-bg;
+  transition: v.$transition-fast;
+
+  &:focus { border-color: v.$color-primary; box-shadow: 0 0 0 3px rgba(27,198,221,0.1); }
+  &::placeholder { color: v.$color-text-muted; }
+}
+
+.search-clear {
+  background: none; border: none; cursor: pointer;
+  color: v.$color-text-muted; font-size: 14px; padding: 4px;
+  &:hover { color: v.$color-danger; }
+}
+
+.search-btn { height: 38px; padding: 0 v.$spacing-md; white-space: nowrap; }
+
+// ── Contenedor de la tabla Material ─────────────────────────
+.table-container {
+  position: relative;
+  overflow-x: auto;
+}
+
+// ── Tabla de datos ────────────────────────────────────────────
+.data-table {
+  width: 100%;
+
+  // Encabezado
+  th.mat-mdc-header-cell {
+    font-size: v.$font-size-xs;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: v.$color-text-muted;
+    background: v.$color-bg;
+    border-bottom: 2px solid v.$color-border;
+    padding: v.$spacing-sm v.$spacing-md;
+    white-space: nowrap;
+  }
+
+  // Celdas
+  td.mat-mdc-cell {
+    font-size: v.$font-size-base;
+    color: v.$color-dark;
+    padding: v.$spacing-sm v.$spacing-md;
+    border-bottom: 1px solid v.$color-border;
+    vertical-align: middle;
+  }
+
+  // Hover en filas
+  tr.mat-mdc-row:hover td { background: rgba(27, 198, 221, 0.04); }
+
+  // Columna de acciones
+  .actions-header, .actions-cell { text-align: right; white-space: nowrap; }
+  .actions-cell { padding-right: v.$spacing-sm; }
+}
+
+// ── Paginador ─────────────────────────────────────────────────
+mat-paginator {
+  border-top: 1px solid v.$color-border;
+  font-size: v.$font-size-sm;
+}

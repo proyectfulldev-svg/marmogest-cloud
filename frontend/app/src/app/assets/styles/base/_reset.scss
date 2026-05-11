@@ -1,0 +1,27 @@
+@use '../abstracts/variables' as v;
+
+*, *::before, *::after {
+  box-sizing: border-box; // El padding no agranda el elemento — comportamiento esperado
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  font-family: v.$font-family;
+  font-size: v.$font-size-base;
+  color: v.$color-dark;
+  background-color: v.$color-bg;
+  -webkit-font-smoothing: antialiased; // Fuentes más suaves en Mac/iOS
+}
+
+// Scrollbar personalizada — discreta, no ocupa espacio
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #d0d0d0; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #b0b0b0; }
+
+a { text-decoration: none; color: inherit; }
+ul, ol { list-style: none; }
+img { max-width: 100%; display: block; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+input, textarea, select { font-family: inherit; outline: none; }

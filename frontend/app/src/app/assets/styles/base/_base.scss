@@ -1,0 +1,95 @@
+@use '../abstracts/variables' as v;
+@use '../abstracts/mixins' as m;
+
+// ── Contenedores de página ──────────────────────────────────
+.page-container {
+  padding: v.$spacing-lg;
+  display: flex;
+  flex-direction: column;
+  gap: v.$spacing-lg;
+  min-height: 100%;
+}
+
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: v.$spacing-md;
+
+  h1 {
+    font-size: v.$font-size-xl;
+    font-weight: 600;
+    color: v.$color-dark;
+    margin: 0;
+  }
+
+  p {
+    font-size: v.$font-size-base;
+    color: v.$color-text-muted;
+    margin: 0;
+  }
+}
+
+// ── Grid utilitario ─────────────────────────────────────────
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr;       gap: v.$spacing-md; }
+.grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: v.$spacing-md; }
+.grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: v.$spacing-md; }
+
+@include m.tablet {
+  .grid-3, .grid-4 { grid-template-columns: 1fr 1fr; }
+}
+@include m.mobile {
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+}
+
+// ── Flex utilitario ─────────────────────────────────────────
+.flex         { display: flex; }
+.flex-center  { @include m.flex-center; }
+.flex-between { display: flex; align-items: center; justify-content: space-between; }
+.flex-end     { display: flex; align-items: center; justify-content: flex-end; }
+.flex-col     { @include m.flex-column; }
+.gap-sm       { gap: v.$spacing-sm; }
+.gap-md       { gap: v.$spacing-md; }
+.gap-lg       { gap: v.$spacing-lg; }
+
+// ── Espaciado ───────────────────────────────────────────────
+.m-0  { margin: 0 !important; }
+.mt-sm { margin-top: v.$spacing-sm; }
+.mt-md { margin-top: v.$spacing-md; }
+.mt-lg { margin-top: v.$spacing-lg; }
+.mb-sm { margin-bottom: v.$spacing-sm; }
+.mb-md { margin-bottom: v.$spacing-md; }
+.mb-lg { margin-bottom: v.$spacing-lg; }
+
+// ── Tamaños ─────────────────────────────────────────────────
+.w-100  { width: 100%; }
+.w-50   { width: 50%; }
+.h-100  { height: 100%; }
+
+// ── Texto ───────────────────────────────────────────────────
+.text-muted   { color: v.$color-text-muted; font-size: v.$font-size-sm; }
+.text-primary { color: v.$color-primary; }
+.text-danger  { color: v.$color-danger; }
+.text-success { color: v.$color-success; }
+.text-center  { text-align: center; }
+.text-right   { text-align: right; }
+.fw-600       { font-weight: 600; }
+
+// ── Separador ───────────────────────────────────────────────
+.divider {
+  border: none;
+  border-top: 1px solid v.$color-border;
+  margin: v.$spacing-md 0;
+}
+
+// ── Overlay/pantalla de carga ────────────────────────────────
+.no-scroll { overflow: hidden !important; }
+
+// ── Mensajes de error de formulario (bajo campos) ───────────
+.field-error {
+  font-size: v.$font-size-xs;
+  color: v.$color-danger;
+  margin-top: 2px;
+  display: block;
+}

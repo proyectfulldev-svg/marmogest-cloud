@@ -1,11 +1,10 @@
 @use '../abstracts/variables' as v;
 @use '../abstracts/mixins' as m;
 
-// Contenedor de un campo: label + input + error
+// ── Grupo base: label + campo + error ─────────────────────────
 .input-group {
   @include m.flex-column;
   gap: v.$spacing-xs;
-  position: relative;      // necesario para posicionar el error abajo
   margin-bottom: v.$spacing-md;
 
   label {
@@ -14,45 +13,121 @@
     color: v.$color-dark;
   }
 
+  // ── Campo genérico (input, select, textarea) ─────────────
   input, select, textarea {
     width: 100%;
     padding: 10px v.$spacing-md;
     border: 1.5px solid v.$color-border;
     border-radius: v.$radius-md;
     font-size: v.$font-size-base;
+    font-family: inherit;
     color: v.$color-dark;
     background: v.$color-white;
     transition: v.$transition-fast;
+    appearance: none;
 
-    &::placeholder {
-      color: v.$color-text-muted;
-    }
+    &::placeholder { color: v.$color-text-muted; }
 
-    // Estado focus: el borde se vuelve del color primario
     &:focus {
+      outline: none;
       border-color: v.$color-primary;
       box-shadow: 0 0 0 3px rgba(27, 198, 221, 0.12);
     }
 
-    // Estado inválido: borde rojo (Angular agrega .ng-invalid .ng-touched)
+    &:disabled {
+      background: v.$color-bg;
+      color: v.$color-text-muted;
+      cursor: not-allowed;
+    }
+
     &.ng-invalid.ng-touched {
       border-color: v.$color-danger;
       box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.10);
     }
   }
 
-  // Mensaje de error debajo del input
-  // La directiva ValidationErrors que ya tienes lo genera
-  .form-error {
-    font-size: v.$font-size-sm;
+  // ── Textarea específico ───────────────────────────────────
+  textarea {
+    min-height: 100px;
+    resize: vertical;
+    line-height: 1.5;
+    padding: v.$spacing-sm v.$spacing-md;
+  }
+
+  // ── Select con flecha custom ──────────────────────────────
+  select {
+    padding-right: 36px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23888' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    cursor: pointer;
+  }
+
+  // ── Mensaje de error (generado por ValidationErrorsDirective)
+  .error-msg {
+    font-size: v.$font-size-xs;
     color: v.$color-danger;
     margin-top: 2px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
   }
 }
 
-// Fila con dos campos lado a lado (nombre + apellido, etc.)
+// ── Campo contraseña con toggle de visibilidad ────────────────
+.input-password {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  input {
+    width: 100%;
+    padding-right: 44px; // espacio para el botón del ojo
+  }
+
+  .toggle-password {
+    position: absolute;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: v.$color-text-muted;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    transition: v.$transition-fast;
+
+    &:hover { color: v.$color-dark; }
+
+    mat-icon { font-size: 18px; width: 18px; height: 18px; }
+  }
+}
+
+// ── Fila con dos campos lado a lado ───────────────────────────
 .input-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: v.$spacing-md;
+
+  @include m.mobile { grid-template-columns: 1fr; }
+}
+
+// ── Input con ícono a la izquierda ────────────────────────────
+.input-icon-left {
+  position: relative;
+
+  .input-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: v.$color-text-muted;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+
+    mat-icon { font-size: 18px; width: 18px; height: 18px; }
+  }
+
+  input { padding-left: 40px; }
 }

@@ -1,0 +1,119 @@
+@use '../abstracts/variables' as v;
+@use '../abstracts/mixins' as m;
+
+// ── Facturas ──────────────────────────────────────────────────
+.invoices-page {
+  @include m.flex-column;
+  gap: v.$spacing-lg;
+}
+
+// ── Previsualización de factura ───────────────────────────────
+.invoice-preview {
+  background: v.$color-white;
+  border: 1px solid v.$color-border;
+  border-radius: v.$radius-lg;
+  padding: v.$spacing-xl;
+  max-width: 800px;
+  margin: 0 auto;
+
+  .invoice-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: v.$spacing-xl;
+
+    .invoice-brand {
+      @include m.flex-column;
+      gap: v.$spacing-xs;
+
+      .brand-name    { font-size: v.$font-size-xl; font-weight: 700; color: v.$color-dark; }
+      .brand-tagline { font-size: v.$font-size-sm; color: v.$color-text-muted; }
+    }
+
+    .invoice-meta {
+      text-align: right;
+      @include m.flex-column;
+      gap: v.$spacing-xs;
+
+      .invoice-number { font-size: v.$font-size-lg; font-weight: 700; color: v.$color-primary; }
+      .invoice-date   { font-size: v.$font-size-sm; color: v.$color-text-muted; }
+    }
+  }
+
+  .invoice-parties {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: v.$spacing-lg;
+    margin-bottom: v.$spacing-xl;
+    padding: v.$spacing-md;
+    background: v.$color-bg;
+    border-radius: v.$radius-md;
+
+    .party-label { font-size: v.$font-size-xs; text-transform: uppercase; letter-spacing: 0.5px; color: v.$color-text-muted; font-weight: 600; margin-bottom: v.$spacing-xs; }
+    .party-name  { font-weight: 600; color: v.$color-dark; }
+    .party-info  { font-size: v.$font-size-sm; color: v.$color-text-muted; line-height: 1.5; }
+  }
+
+  // ── Líneas de la factura ──────────────────────────────────
+  .invoice-lines {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: v.$spacing-lg;
+
+    th {
+      text-align: left;
+      font-size: v.$font-size-xs;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: v.$color-text-muted;
+      padding: v.$spacing-sm;
+      border-bottom: 2px solid v.$color-border;
+    }
+
+    td {
+      padding: v.$spacing-sm;
+      font-size: v.$font-size-sm;
+      color: v.$color-dark;
+      border-bottom: 1px solid v.$color-border;
+      vertical-align: middle;
+    }
+
+    .line-material { font-weight: 500; }
+    .line-qty, .line-price, .line-total { text-align: right; }
+    .line-total { font-weight: 600; }
+  }
+
+  // ── Totales ───────────────────────────────────────────────
+  .invoice-totals {
+    margin-left: auto;
+    width: 260px;
+    @include m.flex-column;
+    gap: v.$spacing-xs;
+
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: v.$font-size-sm;
+      color: v.$color-dark;
+
+      &.subtotal { color: v.$color-text-muted; }
+      &.grand-total {
+        font-size: v.$font-size-md;
+        font-weight: 700;
+        color: v.$color-primary;
+        padding-top: v.$spacing-sm;
+        border-top: 2px solid v.$color-border;
+        margin-top: v.$spacing-xs;
+      }
+    }
+  }
+
+  .invoice-notes {
+    margin-top: v.$spacing-lg;
+    padding-top: v.$spacing-md;
+    border-top: 1px solid v.$color-border;
+    font-size: v.$font-size-sm;
+    color: v.$color-text-muted;
+    line-height: 1.5;
+  }
+}

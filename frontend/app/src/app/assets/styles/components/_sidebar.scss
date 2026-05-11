@@ -1,0 +1,178 @@
+@use '../abstracts/variables' as v;
+@use '../abstracts/mixins' as m;
+
+$sidebar-width: 240px;
+$sidebar-collapsed: 68px;
+
+// ── Sidebar ──────────────────────────────────────────────────
+.sidebar {
+  width: $sidebar-width;
+  height: 100vh;
+  background: v.$color-dark;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 200;
+  transition: width 0.25s ease;
+  overflow: hidden;
+
+  &.collapsed { width: $sidebar-collapsed; }
+
+  @include m.mobile { transform: translateX(-100%); &.open { transform: translateX(0); } }
+}
+
+// ── Logo ─────────────────────────────────────────────────────
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: v.$spacing-sm;
+  padding: v.$spacing-lg v.$spacing-md;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  flex-shrink: 0;
+
+  .brand-logo {
+    width: 36px; height: 36px;
+    background: v.$color-primary;
+    border-radius: v.$radius-md;
+    flex-shrink: 0;
+    @include m.flex-center;
+    font-weight: 800;
+    color: v.$color-white;
+    font-size: v.$font-size-md;
+  }
+
+  .brand-name {
+    font-weight: 700;
+    color: v.$color-white;
+    font-size: v.$font-size-md;
+    white-space: nowrap;
+    overflow: hidden;
+    opacity: 1;
+    transition: opacity 0.2s;
+  }
+
+  .collapsed & .brand-name { opacity: 0; }
+}
+
+// ── Navegación ───────────────────────────────────────────────
+.sidebar-nav {
+  flex: 1;
+  overflow-y: auto;
+  padding: v.$spacing-md 0;
+
+  &::-webkit-scrollbar { width: 3px; }
+  &::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+}
+
+.nav-group-label {
+  font-size: v.$font-size-xs;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: rgba(255,255,255,0.35);
+  padding: v.$spacing-sm v.$spacing-md v.$spacing-xs;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: opacity 0.2s;
+
+  .collapsed & { opacity: 0; }
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: v.$spacing-sm;
+  padding: 10px v.$spacing-md;
+  color: rgba(255,255,255,0.65);
+  text-decoration: none;
+  font-size: v.$font-size-base;
+  transition: v.$transition-fast;
+  white-space: nowrap;
+  cursor: pointer;
+  border-left: 3px solid transparent;
+
+  .nav-icon { font-size: 18px; flex-shrink: 0; }
+  .nav-label { overflow: hidden; transition: opacity 0.2s; }
+
+  &:hover {
+    background: rgba(255,255,255,0.07);
+    color: v.$color-white;
+  }
+
+  &.active {
+    background: rgba(27, 198, 221, 0.15);
+    color: v.$color-primary;
+    border-left-color: v.$color-primary;
+    font-weight: 600;
+  }
+
+  .collapsed & .nav-label { opacity: 0; }
+}
+
+// ── Botón de colapso ─────────────────────────────────────────
+.sidebar-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: v.$spacing-xs v.$spacing-md;
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.4);
+  cursor: pointer;
+  transition: v.$transition-fast;
+  flex-shrink: 0;
+
+  &:hover { color: v.$color-white; }
+
+  mat-icon { font-size: 18px; }
+}
+
+// ── Footer del sidebar (usuario) ─────────────────────────────
+.sidebar-footer {
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding: v.$spacing-md;
+  display: flex;
+  align-items: center;
+  gap: v.$spacing-sm;
+  flex-shrink: 0;
+
+  .user-avatar {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: v.$color-primary;
+    @include m.flex-center;
+    color: v.$color-white;
+    font-weight: 700;
+    font-size: v.$font-size-sm;
+    flex-shrink: 0;
+  }
+
+  .user-info {
+    flex: 1; overflow: hidden; transition: opacity 0.2s;
+    .user-name  { color: v.$color-white; font-size: v.$font-size-sm; font-weight: 600; @include m.text-truncate; display: block; }
+    .user-role  { color: rgba(255,255,255,0.45); font-size: v.$font-size-xs; display: block; }
+  }
+
+  .collapsed & .user-info { opacity: 0; }
+}
+
+// ── Botón logout ──────────────────────────────────────────────
+.sidebar-logout {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.4);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: v.$radius-sm;
+  @include m.flex-center;
+  transition: v.$transition-fast;
+  flex-shrink: 0;
+
+  &:hover { color: v.$color-danger; background: rgba(220,53,69,0.12); }
+
+  mat-icon { font-size: 18px; }
+
+  .collapsed & { display: none; }
+}

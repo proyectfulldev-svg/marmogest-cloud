@@ -1,7 +1,7 @@
 @use 'sass:color';
 @use '../abstracts/variables' as v;
 
-// Base — propiedades comunes a TODOS los botones
+// ── Base ──────────────────────────────────────────────────────
 .btn {
   display: inline-flex;
   align-items: center;
@@ -11,42 +11,123 @@
   border-radius: v.$radius-md;
   font-size: v.$font-size-base;
   font-weight: 500;
+  font-family: inherit;
+  border: none;
+  cursor: pointer;
   transition: v.$transition-fast;
   white-space: nowrap;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
 
   &:disabled {
     opacity: 0.55;
     pointer-events: none;
+    cursor: not-allowed;
   }
 }
 
-// Primario — acción principal (Guardar, Ingresar)
+// ── Spinner de carga (se activa con .btn-loading) ─────────────
+// El texto se vuelve transparente y aparece un spinner encima
+.btn-loading {
+  color: transparent !important;
+  pointer-events: none;
+
+  &::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255,255,255,0.35);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: btn-spin 0.7s linear infinite;
+  }
+}
+
+@keyframes btn-spin {
+  to { transform: rotate(360deg); }
+}
+
+// ── Variantes de color ────────────────────────────────────────
 .btn-primary {
   background: v.$color-primary;
   color: v.$color-white;
-
-  &:hover { background: v.$color-primary-dark; }
+  &:hover  { background: v.$color-primary-dark; }
+  &.btn-loading::after { border-top-color: #fff; }
 }
 
-// Secundario — acción secundaria (Cancelar, Volver)
 .btn-secondary {
   background: transparent;
   color: v.$color-secondary;
   border: 1.5px solid v.$color-border;
-
   &:hover { background: v.$color-bg; }
+  &.btn-loading { color: transparent !important;
+    &::after { border-top-color: v.$color-secondary; border-color: rgba(108,117,125,0.3); }
+  }
 }
 
-// Danger — acciones destructivas (Eliminar)
+.btn-success {
+  background: v.$color-success;
+  color: v.$color-white;
+  &:hover { background: color.adjust(v.$color-success, $lightness: -8%); }
+}
+
 .btn-danger {
   background: v.$color-danger;
   color: v.$color-white;
-
-  // color.adjust reemplaza el darken() que está deprecado en SCSS moderno
   &:hover { background: color.adjust(v.$color-danger, $lightness: -8%); }
 }
 
-// Ancho completo — para botones en formularios
-.btn-block {
-  width: 100%;
+.btn-warning {
+  background: #ffc107;
+  color: #1a1a2e;
+  &:hover { background: color.adjust(#ffc107, $lightness: -8%); }
+  &.btn-loading::after { border-top-color: #1a1a2e; border-color: rgba(26,26,46,0.3); }
+}
+
+.btn-info {
+  background: #17a2b8;
+  color: v.$color-white;
+  &:hover { background: color.adjust(#17a2b8, $lightness: -8%); }
+}
+
+.btn-light {
+  background: v.$color-bg;
+  color: v.$color-dark;
+  border: 1.5px solid v.$color-border;
+  &:hover { background: v.$color-border; }
+}
+
+.btn-white {
+  background: v.$color-white;
+  color: v.$color-dark;
+  border: 1.5px solid v.$color-border;
+  box-shadow: v.$shadow-sm;
+  &:hover { background: v.$color-bg; }
+}
+
+// ── Tamaños ───────────────────────────────────────────────────
+.btn-sm {
+  padding: 6px v.$spacing-md;
+  font-size: v.$font-size-sm;
+  border-radius: v.$radius-sm;
+}
+
+.btn-lg {
+  padding: 14px v.$spacing-xl;
+  font-size: v.$font-size-md;
+}
+
+// ── Ancho completo ────────────────────────────────────────────
+.btn-block { width: 100%; }
+
+// ── Solo ícono ────────────────────────────────────────────────
+.btn-icon {
+  padding: 8px;
+  border-radius: v.$radius-md;
+  background: transparent;
+  color: v.$color-text-muted;
+  border: none;
+  &:hover { background: v.$color-bg; color: v.$color-dark; }
 }
