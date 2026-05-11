@@ -17,3 +17,7 @@ yarn-error.log*
 # OS
 .DS_Store
 Thumbs.db
+
+# IDE / herramientas locales
+.idea/
+.claude/
