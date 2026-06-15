@@ -4,7 +4,18 @@ node_modules/
 
 # Angular
 dist/
+tmp/
+out-tsc/
 .angular/
+/.angular/cache
+.sass-cache/
+coverage/
+typings/
+__screenshots__/
+
+# Logs (Angular)
+npm-debug.log
+yarn-error.log
 
 # Logs
 npm-debug.log*

@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 
-import { CreateInvoice } from '../create-invoice/create-invoice';
+import { CreateInvoice } from '../modals/create-invoice/create-invoice';
 import { InvoiceDetails } from '../invoice-details/invoice-details';
 
 @Component({

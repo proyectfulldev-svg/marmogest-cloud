@@ -13,7 +13,6 @@
     color: v.$color-dark;
   }
 
-  // ── Campo genérico (input, select, textarea) ─────────────
   input, select, textarea {
     width: 100%;
     padding: 10px v.$spacing-md;
@@ -46,7 +45,6 @@
     }
   }
 
-  // ── Textarea específico ───────────────────────────────────
   textarea {
     min-height: 100px;
     resize: vertical;
@@ -54,7 +52,6 @@
     padding: v.$spacing-sm v.$spacing-md;
   }
 
-  // ── Select con flecha custom ──────────────────────────────
   select {
     padding-right: 36px;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23888' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
@@ -63,7 +60,6 @@
     cursor: pointer;
   }
 
-  // ── Mensaje de error (generado por ValidationErrorsDirective)
   .error-msg {
     font-size: v.$font-size-xs;
     color: v.$color-danger;
@@ -82,7 +78,7 @@
 
   input {
     width: 100%;
-    padding-right: 44px; // espacio para el botón del ojo
+    padding-right: 44px;
   }
 
   .toggle-password {
@@ -130,4 +126,131 @@
   }
 
   input { padding-left: 40px; }
+}
+
+// ── ng-select personalizado ───────────────────────────────────
+.ng-select-group {
+  position: relative;
+  margin-bottom: v.$spacing-md;
+  z-index: 1;
+
+  .input-title {
+    position: absolute;
+    font-size: v.$font-size-xs;
+    font-weight: 500;
+    color: v.$color-text-muted;
+    z-index: 1002;
+    pointer-events: none;
+    left: 12px;
+    top: 0;
+    transform: translateY(-50%);
+    background: v.$color-white;
+    padding: 0 6px;
+    line-height: 1;
+  }
+
+  &:focus-within .input-title {
+    color: v.$color-primary;
+  }
+
+  &:focus-within {
+    z-index: 10;
+  }
+}
+
+.container-ng-select {
+  width: 100%;
+  border: 1.5px solid v.$color-border;
+  border-radius: v.$radius-md;
+  background: v.$color-white;
+  font-size: v.$font-size-base;
+  color: v.$color-dark;
+  padding: 0 4px;
+
+  .ng-select-container {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    min-height: 42px !important;
+    color: v.$color-dark;
+    background: transparent !important;
+  }
+
+  &.ng-select-focused {
+    border-color: v.$color-primary;
+    box-shadow: 0 0 0 3px rgba(27, 198, 221, 0.12);
+  }
+
+  // Ocultar placeholder cuando hay valor seleccionado
+  &.ng-has-value .ng-placeholder {
+    display: none !important;
+  }
+
+  .ng-arrow-wrapper {
+    padding-right: 8px;
+
+    .ng-arrow {
+      border-color: v.$color-text-muted transparent transparent;
+      border-width: 5px 5px 0;
+    }
+  }
+
+  &.ng-select-opened .ng-arrow-wrapper .ng-arrow {
+    border-color: transparent transparent v.$color-primary;
+    border-width: 0 5px 5px;
+  }
+
+  .ng-placeholder {
+    color: v.$color-text-muted !important;
+    font-size: v.$font-size-base;
+  }
+
+  .ng-value-label { color: v.$color-dark; }
+
+  .ng-input input {
+    color: v.$color-dark !important;
+    font-size: v.$font-size-base;
+  }
+
+  .ng-clear-wrapper {
+    color: v.$color-text-muted;
+
+    &:hover { color: v.$color-danger; }
+  }
+}
+
+.ng-select-search .ng-input {
+  position: relative;
+  top: 0 !important;
+}
+
+// ── Panel desplegable ─────────────────────────────────────────
+.ng-dropdown-panel {
+  border: 1.5px solid v.$color-border !important;
+  border-radius: v.$radius-md !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+  margin-top: 4px !important;
+  overflow: hidden;
+  z-index: 1050 !important;
+
+  .ng-option {
+    font-size: v.$font-size-base;
+    color: v.$color-dark;
+    padding: 10px v.$spacing-md;
+    transition: background 0.15s ease;
+
+    &.ng-option-marked {
+      background: rgba(27, 198, 221, 0.08);
+    }
+
+    &.ng-option-selected {
+      background: rgba(27, 198, 221, 0.15);
+      color: v.$color-primary;
+      font-weight: 600;
+    }
+
+    &.ng-option-disabled {
+      color: v.$color-text-muted;
+    }
+  }
 }

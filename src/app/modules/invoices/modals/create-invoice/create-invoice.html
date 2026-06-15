@@ -1,0 +1,54 @@
+<div class="modal-container" [formGroup]="form">
+
+  <div class="modal-header">
+    <h2 class="modal-title">Nueva factura</h2>
+    <button class="modal-close" (click)="close()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="modal-body">
+
+    <div class="ng-select-group">
+      <span class="input-title">Cliente</span>
+      <ng-select
+        [items]="clientes"
+        bindLabel="nombre"
+        bindValue="id"
+        [clearable]="false"
+        [searchable]="true"
+        formControlName="cliente_id"
+        placeholder="Buscar cliente..."
+        appendTo="body"
+        class="container-ng-select ng-select-search">
+      </ng-select>
+    </div>
+
+    <div class="ng-select-group">
+      <span class="input-title">Material</span>
+      <ng-select
+        [items]="materiales"
+        bindLabel="nombre"
+        bindValue="id"
+        [clearable]="false"
+        [searchable]="true"
+        formControlName="material_id"
+        placeholder="Buscar material..."
+        appendTo="body"
+        class="container-ng-select ng-select-search">
+      </ng-select>
+    </div>
+
+    <div class="input-group">
+      <label class="form-label">Descripción</label>
+      <input type="text" class="form-control" formControlName="descripcion" placeholder="Descripción de la factura">
+    </div>
+
+  </div>
+
+  <div class="modal-footer">
+    <button class="btn btn-light" (click)="close()">Cancelar</button>
+    <button class="btn btn-primary" (click)="save()">Guardar</button>
+  </div>
+
+</div>

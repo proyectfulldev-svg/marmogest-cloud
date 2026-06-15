@@ -3,7 +3,7 @@ import { RouterLink } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 
-import { CreateInvoice } from '../invoices/create-invoice/create-invoice';
+import { CreateInvoice } from '../invoices/modals/create-invoice/create-invoice';
 
 // ── Interfaces ────────────────────────────────────────────────
 
